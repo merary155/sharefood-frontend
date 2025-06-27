@@ -1,0 +1,114 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 1);
+  transition: all 0.3s ease;
+  z-index: 1;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header.shrink {
+  width: 90%;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.9);
+  opacity: 0.9;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  top: 15px;
+}
+
+.header-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative; /* 相対位置の基準 */
+  height: 100%;
+}
+
+.header.shrink .mark .material-icons {
+  position: absolute; /* 絶対位置に切り替え */
+  bottom: 10px;
+  right: 0;
+  font-size: 50px;
+}
+
+.header-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d60017;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 通常の人アイコン */
+.mark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  font-size: 28px;
+  color: #333;
+  padding: 4px;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.mark .material-icons {
+  position: relative;  
+  transition: all 0.3s ease;
+}
+
+/* hover */
+.mark:hover {
+  color: #d60017;
+}
+
+/* メニュー：右下にピタッと */
+.menu-list {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  transition: margin-right 0.3s ease;
+}
+
+.menu-list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 1000;
+  font-size: 12px;
+  position: relative;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.menu-list li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #d60017;
+  transition: width 0.3s;
+}
+
+.menu-list li a:hover::after {
+  width: 100%;
+}
+
+.header.shrink .menu-list {
+  margin-right: 60px; /* 人アイコンの幅＋余白分 */
+}
