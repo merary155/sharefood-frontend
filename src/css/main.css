@@ -1,0 +1,79 @@
+main {
+  height: auto;
+  padding: 30px 0;
+  background-color: #fff;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  width: 80vw;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.modal-nav {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.modal-nav button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.modal-nav button.active {
+  border-color: #d60017;
+  font-weight: bold;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content input {
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.modal-content button[type="submit"] {
+  background-color: #d60017;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
