@@ -1,9 +1,16 @@
 import '../css/main.css';
 import React,{useState} from 'react';
 
-export default function Main(){
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTab, setModalTab] = useState('login');  //login,register,forgot
+export default function Main({ modalState, setModalState }){
+  const { isOpen: isModalOpen, tab: modalTab } = modalState;
+  
+  const setIsModalOpen = (open) => {
+    setModalState(prev => ({ ...prev, isOpen: open }));
+  };
+  
+  const setModalTab = (tab) => {
+    setModalState(prev => ({ ...prev, tab }));
+  };
 
   return(
     <main>

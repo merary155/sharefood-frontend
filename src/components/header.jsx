@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/header.css';
-import {RegisterForm} from './main.jsx'
 
-function Header(){
+function Header({ onPersonClick }){
   const menuItems = ['トップ','サービス','ビジョン','ご連絡はこちら']
   const [shrink, setShrink] = useState(false);
 
@@ -32,7 +31,7 @@ function Header(){
             ))}
           </ul>
         </nav>
-        <div className='mark' onClick={() => RegisterForm()}>
+        <div className='mark' onClick={onPersonClick}>
           <span className="material-icons">person</span>
         </div>
       </div>
