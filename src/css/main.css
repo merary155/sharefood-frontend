@@ -77,3 +77,44 @@ main {
   font-size: 1.5rem;
   cursor: pointer;
 }
+
+.register-btn, .login-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  margin: 10px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 6px 15px rgba(214, 0, 23, 0.3);
+  color: white;
+}
+
+.register-btn {
+  background: linear-gradient(45deg, #d60017, #ff3b3b);
+}
+
+.register-btn:hover {
+  background: linear-gradient(45deg, #ff3b3b, #d60017);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 59, 59, 0.5);
+}
+
+.login-btn {
+  background: linear-gradient(45deg, #555, #888);
+}
+
+.login-btn:hover {
+  background: linear-gradient(45deg, #888, #555);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(136, 136, 136, 0.5);
+}
+
+.btn-container{
+  display: flex;             /* 横並び */
+  justify-content: center;   /* 横方向の中央揃え */
+  gap: 40px;                 /* ボタン間のスペース */
+  margin: 20px 0;           
+}

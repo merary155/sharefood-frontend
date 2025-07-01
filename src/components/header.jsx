@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../css/header.css';
+import {RegisterForm} from './main.jsx'
 
 function Header(){
   const menuItems = ['トップ','サービス','ビジョン','ご連絡はこちら']
@@ -31,7 +32,7 @@ function Header(){
             ))}
           </ul>
         </nav>
-        <div className='mark' onClick={() => window.location.href = '/signup'}>
+        <div className='mark' onClick={() => RegisterForm()}>
           <span className="material-icons">person</span>
         </div>
       </div>

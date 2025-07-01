@@ -1,27 +1,30 @@
 import '../css/main.css';
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 
-export default function Main() {
+export default function Main(){
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTab, setModalTab] = useState('login'); // login, register, forgot
+  const [modalTab, setModalTab] = useState('login');  //login,register,forgot
 
-  return (
+  return(
     <main>
       <section>
-        <button className='subscript'>会員登録はこちら</button>
-        <button className='login-btn' onClick={() => setIsModalOpen(true)}>ログインはこちら</button>
+        <div className='btn-container'>
+          <button className='register-btn' onClick={()=> {setIsModalOpen(true); setModalTab('register');}}>会員登録はこちら</button>
+          <button className='login-btn' onClick={()=> setIsModalOpen(true)}>ログインはこちら</button>
+        </div>
         <p>会員登録するとサービスをご利用いただけます</p>
 
         {isModalOpen && (
-          <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-            <div className="modal" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-overlay" onClick={()=> setIsModalOpen(false)}>
+            {/* e.stopPropagationを入れて、モーダルをクリックしたときにオーバーレイ関数が動かないようにする */}
+            <div className="modal" onClick={(e)=> e.stopPropagation()}> 
               <nav className="modal-nav">
                 <button onClick={() => setModalTab('login')} className={modalTab === 'login' ? 'active' : ''}>ログイン</button>
                 <button onClick={() => setModalTab('register')} className={modalTab === 'register' ? 'active' : ''}>会員登録</button>
                 <button onClick={() => setModalTab('forgot')} className={modalTab === 'forgot' ? 'active' : ''}>パスワードを忘れた方はこちら</button>
               </nav>
-
               <div className="modal-content">
+                {/* 変数modalTabがそれぞれの値と一致すれば右の関数が動く */}
                 {modalTab === 'login' && <LoginForm />}
                 {modalTab === 'register' && <RegisterForm />}
                 {modalTab === 'forgot' && <ForgotPassword />}
@@ -36,18 +39,18 @@ export default function Main() {
   );
 }
 
-function LoginForm() {
-  return (
+export function LoginForm(){
+  return(
     <form>
       <h2>ログイン</h2>
-      <input type="email" placeholder="メールアドレス" required />
-      <input type="password" placeholder="パスワード" required />
-      <button type="submit">ログイン</button>
+      <input type='email' placeholder='メールアドレスを入力してください' required />
+      <input type='password' placeholder='パスワードを入力してください' required />
+      <button type='submit'>ログイン</button>
     </form>
   );
 }
 
-function RegisterForm() {
+export function RegisterForm() {
   return (
     <form>
       <h2>会員登録</h2>
@@ -59,7 +62,7 @@ function RegisterForm() {
   );
 }
 
-function ForgotPassword() {
+export function ForgotPassword() {
   return (
     <form>
       <h2>パスワードを忘れた方</h2>
@@ -68,3 +71,4 @@ function ForgotPassword() {
     </form>
   );
 }
+
