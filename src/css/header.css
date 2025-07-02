@@ -88,13 +88,19 @@
   transition: margin-right 0.3s ease;
 }
 
+/* 通常時のメニュー並び */
 .menu-list li a {
   text-decoration: none;
   color: #333;
   font-weight: 1000;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   position: relative;
   font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* シュリンク時のメニューの並び */
+.shrink .menu-list li a{
+  font-size: 1.0rem;
 }
 
 .menu-list li a::after {
