@@ -1,4 +1,3 @@
-import React from 'react';
 import LoginForm from './LoginForm.jsx';
 import RegisterForm from './RegisterForm.jsx';
 import ForgotPassword from './ForgotPassword.jsx';
@@ -26,4 +25,3 @@ export default function Modal({onClose, activeTab, onChangeTab }) {
     </div>
   );
 }
-
