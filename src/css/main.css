@@ -120,6 +120,13 @@ main {
   margin: 1.25rem 0;           
 }
 
+.btn-container + p {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  margin: 1.5rem 0;
+}
+
 /* フローセクション */
 .flow-section {
   max-width: 75rem;
