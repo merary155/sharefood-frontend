@@ -143,7 +143,6 @@ export default function Main({ modalState, setModalState }){ //親から受け�
             </div>
           </div>
         )}
-      </section>
     </main>
   );
 }
