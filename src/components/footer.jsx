@@ -47,14 +47,14 @@ export default function Footer() {
           </div>
           <div className="contact-info">
             <p>📧 info@foodshare.com</p>
-            <p>📞 03-1234-5678</p>
+            <p>📞 01-234-5678</p>
           </div>
         </div>
       </div>
       
       <div className="footer-bottom">
         <div className="footer-bottom-content">
-          <p>&copy; 2024 FoodShare. All rights reserved.</p>
+          <p>&copy; 2025 FoodShare. All rights reserved.</p>
           <div className="important-notice">
             <p>⚠️ 食品の品質・安全性は提供者の責任です。受け取り前に必ず確認してください。</p>
           </div>
