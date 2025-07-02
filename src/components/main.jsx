@@ -1,7 +1,7 @@
 import '../css/main.css';
-import React,{useState} from 'react';
+import React from 'react';
 
-export default function Main({ modalState, setModalState }){
+export default function Main({ modalState, setModalState }){ //親から受け取ったpropsを分割代入
   const { isOpen: isModalOpen, tab: modalTab } = modalState;
   
   const setIsModalOpen = (open) => {
@@ -17,7 +17,7 @@ export default function Main({ modalState, setModalState }){
       <section>
         <div className='btn-container'>
           <button className='register-btn' onClick={()=> {setIsModalOpen(true); setModalTab('register');}}>会員登録はこちら</button>
-          <button className='login-btn' onClick={()=> setIsModalOpen(true)}>ログインはこちら</button>
+          <button className='login-btn' onClick={()=> {setIsModalOpen(true); setModalTab('login');}}>ログインはこちら</button>
         </div>
         <p>会員登録するとサービスをご利用いただけます</p>
 
@@ -61,9 +61,9 @@ export function RegisterForm() {
   return (
     <form>
       <h2>会員登録</h2>
-      <input type="text" placeholder="名前" required />
-      <input type="email" placeholder="メールアドレス" required />
-      <input type="password" placeholder="パスワード" required />
+      <input type="text" placeholder="田中　太郎" required />
+      <input type="email" placeholder="メールアドレスを入力してください" required />
+      <input type="password" placeholder="パスワードを入力してください" required />
       <button type="submit">登録</button>
     </form>
   );

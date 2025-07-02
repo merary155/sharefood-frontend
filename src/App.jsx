@@ -13,9 +13,9 @@ export default function App() {
 
   return (
     <>
-      <Header onPersonClick={handlePersonClick} />
+      <Header onPersonClick={handlePersonClick} />   {/* ここで親から子にpropsを譲渡 */}
       <Hero />
-      <Main modalState={modalState} setModalState={setModalState} />
+      <Main modalState={modalState} setModalState={setModalState} />　{/* ここで親から子にpropsを譲渡 */}
     </>
   )
 }
