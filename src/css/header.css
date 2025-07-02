@@ -85,7 +85,14 @@
   list-style: none;
   margin: 0;
   padding: 0.25rem;
-  transition: margin-right 0.3s ease;
+  transition: margin-right 0.3s ease, top 0.3s ease, bottom 0.3s ease;
+}
+
+/* シュリンク時のメニューを垂直中央に配置 */
+.header.shrink .menu-list {
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* 通常時のメニュー並び */
