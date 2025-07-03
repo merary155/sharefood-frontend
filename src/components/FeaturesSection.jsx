@@ -22,7 +22,7 @@ const FeaturesSection = () => {
     <section className="features-section">
       <h2>FoodShareの特徴</h2>
       <div className="features-grid">
-        {features.map(feature => (
+        {features.map(feature => (  //ここで配列を展開
           <FeatureCard key={feature.title} {...feature} />
         ))}
       </div>

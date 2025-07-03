@@ -34,7 +34,7 @@ const FlowSection = () => {
         <div className="flow-card giver-flow">
           <h3>🎁 譲渡する方</h3>
           <div className="flow-steps">
-            {giverSteps.map(step => (
+            {giverSteps.map(step => ( 
               <FlowStep key={`giver-${step.number}`} {...step} />
             ))}
           </div>
