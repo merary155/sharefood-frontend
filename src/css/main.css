@@ -20,7 +20,7 @@ main {
 
 .modal {
   background: white;
-  width: 80vw;
+  width: 90vw;
   max-width: 37.5rem;
   padding: 1.25rem;
   border-radius: 0.625rem;
@@ -288,6 +288,16 @@ main {
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
+  /* ヒーローセクションの調整 */
+  .hero-section h1 { /* 仮のセレクタ。実際のh1に合わせてください */
+    font-size: 2.2rem;
+  }
+
+  .btn-container {
+    flex-direction: column; /* ボタンを縦積みにする */
+    gap: 1rem; /* ボタン間のスペースを調整 */
+  }
+
   .flow-container {
     grid-template-columns: 1fr;
     gap: 2rem;
