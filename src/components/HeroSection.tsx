@@ -1,6 +1,8 @@
 import React from 'react';
 
 // Mainから渡される関数をpropsとして受け取る
+
+
 const HeroSection = ({ onRegisterClick, onLoginClick }) => {
   return (
     <section>

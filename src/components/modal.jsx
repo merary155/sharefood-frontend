@@ -1,6 +1,6 @@
 import LoginForm from './LoginForm.jsx';
 import RegisterForm from './RegisterForm.jsx';
-import ForgotPassword from './ForgotPassword.jsx';
+import ForgotPassword from './ForgotPassword.tsx';
 
 export default function Modal({onClose, activeTab, onChangeTab }) {
 
