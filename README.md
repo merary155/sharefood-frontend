@@ -1,17 +1,42 @@
-## Running React on Replit
+こちらは「ShareFood」サービスのフロントエンドのリポジトリになります。バックエンドのリポジトリは[こちら](https://github.com/merary155/sharefood-backend)です。
 
-[React](https://reactjs.org/) is a popular JavaScript library for building user interfaces.
+# ShareFood / フードシェアサービス
 
-[Vite](https://vitejs.dev/) is a blazing fast frontend build tool that includes features like Hot Module Reloading (HMR), optimized builds, and TypeScript support out of the box.
+## 📌 概要
+**ShareFood** は、家庭や店舗で余ってしまった食品を地域の人々と「シェア」することで、  
+食品廃棄を減らし、持続可能な社会を目指すフードシェアリングプラットフォームです。
 
-Using the two in conjunction is one of the fastest ways to build a web app.
+## 仕様技術一覧
+**フロントエンド** React.js 18.2.0/ TypeScript 5.8.3
+- フォーマッター: Prettier
+- テストフレームワーク: Jest / React Testing Library
+- CSSフレームワーク: Tailwind CSS
 
-### Getting Started
-- Hit run
-- Edit [App.jsx](#src/App.jsx) and watch it live update!
+**バックエンド:** Python 3.10.6 / Flask 3.1.1  
+<details>
+  <summary> 使用ライブラリ</summary>
 
-By default, Replit runs the `dev` script, but you can configure it by changing the `run` field in the [configuration file](#.replit). Here are the vite docs for [serving production websites](https://vitejs.dev/guide/build.html)
+- Flask 3.1.1（Webフレームワーク）  
+- Flask-SQLAlchemy（ORM：DB操作）  
+- Flask-WTF（フォームバリデーション）  
+- WTForms（フォーム定義）  
+- SQLAlchemy（DBライブラリ） 
+</details>
 
-### Typescript
+- コード解析 / フォーマッター: flake8, black  
+- テストフレームワーク: pytest, unittest  
+- DB: SQLite  
 
-Just rename any file from `.jsx` to `.tsx`. You can also try our [TypeScript Template](https://replit.com/@replit/React-TypeScript)
+**インフラ:** AWS(Route53 / Certificate Manager / ALB / VPC / ECR / ECS Fargate / RDS MySQL / S3) / Nginx / Vercel
+
+**CI / CD:** GitHub Actions
+
+**環境構築:** Docker / Docker Compose
+
+**認証:** Firebase Authentication
+
+## 主要対応一覧
+
+### ユーザー向け
+
+#### 機能
