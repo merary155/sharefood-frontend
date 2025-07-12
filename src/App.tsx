@@ -1,15 +1,10 @@
-import Header from './components/header.jsx'
-import Hero from './components/hero.jsx'
-import Main from './components/main.jsx'
-import Footer from './components/footer.jsx'
+import Header from './components/header'
+import Hero from './components/hero'
+import Main from './components/main'
+import Footer from './components/footer'
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
-// stateの型を定義
-type ModalState = {
-  isOpen: boolean;
-  tab: 'login' | 'register';
-};
+import type { ModalState } from './types';
 
 // スタイル付きコンポーネントを定義
 const StatusText = styled.p`

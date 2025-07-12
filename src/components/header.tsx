@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import '../css/header.css';
 
-function Header({ onPersonClick }){
-  const menuItems = ['トップ','サービス','ビジョン','ご連絡はこちら']
-  const [shrink, setShrink] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // メニューの開閉状態を管理
+// propsの型定義をinterfaceで
+interface HeaderProps {
+  onPersonClick: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onPersonClick }) => {
+  const menuItems: string[] = ['トップ', 'サービス', 'ビジョン', 'ご連絡はこちら'];
+  const [shrink, setShrink] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // メニューの開閉状態を管理
 
   useEffect(() => {
     const handleScroll = () => {
-      // window.scrollY > 50 の結果 (true/false) を直接セットする方が簡潔です
+      // window.scrollY軸が50pxを超えていればtrueになる
       setShrink(window.scrollY > 50);
     };
 
@@ -21,23 +26,23 @@ function Header({ onPersonClick }){
     setIsMenuOpen(!isMenuOpen);
   };
 
-  return(
+  return (
     // isMenuOpenの状態に応じてクラスを追加
     <header className={`header ${shrink ? 'shrink' : ''} ${isMenuOpen ? 'menu-opened' : ''}`}>
-      <div className='header-container'>
-        <a href="#" className='header-logo'>ShareFood</a>
+      <div className="header-container">
+        <a href="#" className="header-logo">ShareFood</a>
         <nav>
           {/* isMenuOpenの状態に応じてクラスを追加 */}
           <ul className={`menu-list ${isMenuOpen ? 'open' : ''}`}>
-            {menuItems.map((item,index)=>(
+            {menuItems.map((item, index) => (
               <li key={index}>
                 {/* メニュー項目をクリックしたらメニューが閉じるようにする */}
-                <a href='#' onClick={() => setIsMenuOpen(false)}>{item}</a>
+                <a href="#" onClick={() => setIsMenuOpen(false)}>{item}</a>
               </li>
             ))}
           </ul>
         </nav>
-        <div className='mark' onClick={onPersonClick}>
+        <div className="mark" onClick={onPersonClick}>
           <span className="material-icons">person</span>
         </div>
         {/* ハンバーガーメニューボタン (スマホでのみ表示) */}
@@ -49,6 +54,6 @@ function Header({ onPersonClick }){
       </div>
     </header>
   );
-}
+};
 
 export default Header;

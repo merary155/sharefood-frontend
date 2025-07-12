@@ -1,11 +1,22 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import '../css/main.css';
 import Modal from './modal';
 import FlowSection from './FlowSection';
 import FeaturesSection from './FeaturesSection';
 import HeroSection from './HeroSection';
 
-export default function Main({ modalState, setModalState }) { //親から受け取ったpropsを分割代入
+// 親から受け取ったpropsの型を定義
+interface ModalState {
+  isOpen: boolean;
+  tab: string;
+}
+
+interface MainProps {
+  modalState: ModalState;
+  setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
+}
+
+export default function Main({ modalState, setModalState }: MainProps) { //親から受け取ったpropsを分割代入
   const { isOpen: isModalOpen, tab: modalTab } = modalState;
 
   // HeroSectionに渡す関数もuseCallbackでメモ化する
@@ -23,7 +34,7 @@ export default function Main({ modalState, setModalState }) { //親から受け�
     setModalState(prev => ({ ...prev, isOpen: false }));
   }, [setModalState]);
 
-  const changeTab = useCallback((tab) => {
+  const changeTab = useCallback((tab: string) => {
     setModalState(prev => ({ ...prev, tab }));
   }, [setModalState]);
 
