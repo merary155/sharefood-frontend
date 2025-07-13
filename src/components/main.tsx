@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import '../css/main.css';
-import Modal from './modal';
 import FlowSection from './FlowSection';
 import FeaturesSection from './FeaturesSection';
 import HeroSection from './HeroSection';
+import Modal from './modal';
 import type { ActiveTab } from './modal'; // modal.tsx から型をインポート
 
 // 親から受け取ったpropsの型を定義

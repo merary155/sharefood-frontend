@@ -3,7 +3,7 @@ import RegisterForm from './RegisterForm';
 import ForgotPassword from './ForgotPassword';
 
 // タブの状態を表す型
-type ActiveTab = 'login' | 'register' | 'forgot';
+export type ActiveTab = 'login' | 'register' | 'forgot';
 
 // コンポーネントのPropsの型
 // voidだけだと戻り値無し、()=>void で引数・戻り値無しにできる
