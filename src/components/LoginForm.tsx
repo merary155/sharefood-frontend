@@ -37,7 +37,11 @@ const LoginForm: React.FC = () => {
         onChange={handleChange}
         autoComplete="email"
       />
-      {/* オプショナルチェイニング(?.)で、errorsオブジェクトが存在しなくてもエラーを防止 */}
+      {/* 
+      errors が undefined または null の場合でも安全にアクセスできるように、  
+      オプショナルチェイニング（?.）を使っている。  
+      また、errors.email が空文字 '' や undefined の場合は何も表示しないための条件判定も兼ねている
+      */}
       {errors?.email && <p style={{ color: 'red' }}>{errors.email}</p>}
 
       <label htmlFor="login-password">パスワード</label>
@@ -50,6 +54,7 @@ const LoginForm: React.FC = () => {
         onChange={handleChange}
         autoComplete="current-password"
       />
+      {/* 上に書いたコメントと同様 */}
       {errors?.password && <p style={{ color: 'red' }}>{errors.password}</p>} 
 
       <button type="submit">ログイン</button>
