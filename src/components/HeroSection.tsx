@@ -1,7 +1,12 @@
 import React from 'react';
 
-// Mainから渡される関数をpropsとして受け取る
-const HeroSection = ({ onRegisterClick, onLoginClick }) => {
+// Propsの型を定義
+interface HeroSectionProps {
+  onRegisterClick: () => void;
+  onLoginClick: () => void;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick, onLoginClick }) => {
   return (
     <section>
       <div className='btn-container'>

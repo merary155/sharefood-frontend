@@ -4,11 +4,12 @@ import Modal from './modal';
 import FlowSection from './FlowSection';
 import FeaturesSection from './FeaturesSection';
 import HeroSection from './HeroSection';
+import type { ActiveTab } from './modal'; // modal.tsx から型をインポート
 
 // 親から受け取ったpropsの型を定義
 interface ModalState {
   isOpen: boolean;
-  tab: string;
+  tab: ActiveTab;
 }
 
 interface MainProps {
@@ -34,7 +35,7 @@ export default function Main({ modalState, setModalState }: MainProps) { //親�
     setModalState(prev => ({ ...prev, isOpen: false }));
   }, [setModalState]);
 
-  const changeTab = useCallback((tab: string) => {
+  const changeTab = useCallback((tab: ActiveTab) => {
     setModalState(prev => ({ ...prev, tab }));
   }, [setModalState]);
 

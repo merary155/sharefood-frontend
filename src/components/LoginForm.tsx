@@ -15,7 +15,7 @@ const LoginForm: React.FC = () => {
     validateLogin
   );
 
-  // イベントハンドラの引数 `e` に型を付けます
+  // e専用の型チェック
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
@@ -27,34 +27,34 @@ const LoginForm: React.FC = () => {
   return (
     // noValidate属性により、ブラウザ標準のバリデーションを無効化し、カスタムバリデーションを優先
     <form onSubmit={handleSubmit} noValidate>
-      <div>
-        <label htmlFor="login-email">メールアドレス</label>
-        <input
-          id="login-email"
-          name="email"
-          type="email"
-          placeholder="メールアドレス"
-          value={values.email}
-          onChange={handleChange}
-        />
-        {/* オプショナルチェイニング(?.)で、errorsオブジェクトが存在しなくてもエラーを防止 */}
-        {errors?.email && <p style={{ color: 'red' }}>{errors.email}</p>}
-      </div>
+      <label htmlFor="login-email">メールアドレス</label>
+      <input
+        id="login-email"
+        name="email"
+        type="email"
+        placeholder="メールアドレス"
+        value={values.email}
+        onChange={handleChange}
+        autoComplete="email"
+      />
+      {/* オプショナルチェイニング(?.)で、errorsオブジェクトが存在しなくてもエラーを防止 */}
+      {errors?.email && <p style={{ color: 'red' }}>{errors.email}</p>}
 
-      <div>
-        <label htmlFor="login-password">パスワード</label>
-        <input
-          id="login-password"
-          name="password"
-          type="password"
-          placeholder="パスワード"
-          value={values.password}
-          onChange={handleChange}
-        />
-        {errors?.password && <p style={{ color: 'red' }}>{errors.password}</p>}
-      </div>
+      <label htmlFor="login-password">パスワード</label>
+      <input
+        id="login-password"
+        name="password"
+        type="password"
+        placeholder="パスワード"
+        value={values.password}
+        onChange={handleChange}
+        autoComplete="current-password"
+      />
+      {errors?.password && <p style={{ color: 'red' }}>{errors.password}</p>} 
 
       <button type="submit">ログイン</button>
     </form>
   );
 }
+
+export default LoginForm;

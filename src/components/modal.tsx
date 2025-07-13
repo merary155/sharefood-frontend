@@ -1,13 +1,24 @@
-import LoginForm from './LoginForm.jsx';
-import RegisterForm from './RegisterForm.jsx';
-import ForgotPassword from './ForgotPassword.tsx';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
+import ForgotPassword from './ForgotPassword';
 
-export default function Modal({onClose, activeTab, onChangeTab }) {
+// タブの状態を表す型
+type ActiveTab = 'login' | 'register' | 'forgot';
 
+// コンポーネントのPropsの型
+// voidだけだと戻り値無し、()=>void で引数・戻り値無しにできる
+// (引数名: 型) => 戻り値の型
+interface ModalProps {
+  onClose: () => void;
+  activeTab: ActiveTab;
+  onChangeTab: (tab: ActiveTab) => void; // 引数有・その引数の型をActiveTabにする
+}
+
+const Modal: React.FC<ModalProps> = ({ onClose, activeTab, onChangeTab }) => {
   return (
-    <div className="modal-overlay" onClick={onClose}> 
+    <div className="modal-overlay" onClick={onClose}>
       {/* オーバーレイをクリックするとモーダルを閉じる */}
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
         {/* e.stopPropagationを入れて、モーダルをクリックしたときにオーバーレイ関数が動かないようにする */}
         <nav className="modal-nav">
           <button onClick={() => onChangeTab('login')} className={activeTab === 'login' ? 'active' : ''}>ログイン</button>
@@ -15,7 +26,6 @@ export default function Modal({onClose, activeTab, onChangeTab }) {
           <button onClick={() => onChangeTab('forgot')} className={activeTab === 'forgot' ? 'active' : ''}>パスワードを忘れた方はこちら</button>
         </nav>
         <div className="modal-content">
-          {/* 変数modalTabがそれぞれの値と一致すれば右の関数が動く */}
           {activeTab === 'login' && <LoginForm />}
           {activeTab === 'register' && <RegisterForm />}
           {activeTab === 'forgot' && <ForgotPassword />}
@@ -24,4 +34,6 @@ export default function Modal({onClose, activeTab, onChangeTab }) {
       </div>
     </div>
   );
-}
+};
+
+export default Modal;
