@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from '../hooks/useForm';
 import { validateLogin } from '../utils/validation';
+import { useNavigate } from 'react-router-dom';
 
 // フォームで扱う値の型を定義
 interface FormValues {
@@ -15,12 +16,38 @@ const LoginForm: React.FC = () => {
     validateLogin
   );
 
+  const navigate = useNavigate(); // ✅ useNavigateで画面遷移できる
+
   // e専用の型チェック
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
       console.log('ログイン送信:', values);
       // TODO: サーバーにデータを送信する処理をここに実装 (例: fetch/axios)
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+
+        if (!res.ok) {
+          throw new Error('ログインに失敗しました');
+        }
+
+        const data = await res.json();
+        // トークンなどを保存（例：localStorage に JWT を保存）
+        localStorage.setItem('token', data.token);
+
+        // ✅ ログイン成功後に /dashboard に遷移
+        navigate('/dashboard');
+
+      } catch (error) {
+        console.error(error);
+        alert('ログインに失敗しました。もう一度お試しください。');
+      }
     }
   };
 
