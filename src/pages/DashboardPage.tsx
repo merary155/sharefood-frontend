@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// 仮のユーザー情報型
+interface User {
+  id: number;
+  username: string;
+}
+
 // 仮の食品データ型
 interface FoodItem {
   id: number;
@@ -11,7 +17,9 @@ interface FoodItem {
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
+  const [user, setUser] = useState<User | null>(null); // ユーザー情報を保持
+  const [myFoodItems, setMyFoodItems] = useState<FoodItem[]>([]); // 自分が登録した食品
+  const [appliedFoodItems, setAppliedFoodItems] = useState<FoodItem[]>([]); // 自分が応募した食品
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleLogout = () => {
@@ -20,7 +28,7 @@ const DashboardPage: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchFoodItems = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
         // トークンがない場合はログインページにリダイレクト
@@ -29,40 +37,104 @@ const DashboardPage: React.FC = () => {
           return;
         }
 
-        const res = await fetch('/api/v1/foods', { // バックエンドに食品一覧APIが必要
-          headers: {
-            'Authorization': `Bearer ${token}`, // 認証トークンをヘッダーに付与
-          },
-        });
-        if (!res.ok) throw new Error('食品情報の取得に失敗しました');
-        const data: FoodItem[] = await res.json();
-        setFoodItems(data);
+        // 複数のAPIを並行して呼び出す
+        const [userRes, myFoodsRes, appliedFoodsRes] = await Promise.all([
+          fetch('/api/v1/me', { // ユーザー情報取得API
+            headers: { 'Authorization': `Bearer ${token}` },
+          }),
+          fetch('/api/v1/my/foods', { // 自分が登録した食品一覧API
+            headers: { 'Authorization': `Bearer ${token}` },
+          }),
+          fetch('/api/v1/my/applications', { // 自分が応募した食品一覧API
+            headers: { 'Authorization': `Bearer ${token}` },
+          }),
+        ]);
+
+        if (!userRes.ok) throw new Error('ユーザー情報の取得に失敗しました');
+        const userData: User = await userRes.json();
+        console.log('APIから取得したユーザー情報:', userData); // ★デバッグ用ログを追加
+        setUser(userData);
+
+        if (myFoodsRes.ok) {
+          const myFoodsData: FoodItem[] = await myFoodsRes.json();
+          setMyFoodItems(myFoodsData);
+        }
+
+        if (appliedFoodsRes.ok) {
+          const appliedFoodsData: FoodItem[] = await appliedFoodsRes.json();
+          setAppliedFoodItems(appliedFoodsData);
+        }
       } catch (error) {
-        console.error(error);
+        console.error('データの取得中にエラーが発生しました:', error); // ★エラー内容を詳しく表示
+        // エラーハンドリング: トークン切れなどでログインページに飛ばすなど
+        if (error instanceof Error && (error.message.includes('401') || error.message.includes('Failed to fetch'))) {
+            handleLogout();
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    fetchFoodItems();
+    fetchData();
   }, [navigate]);
 
-  if (loading) return <div>読み込み中...</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl">読み込み中...</div>
+      </div>
+    );
+  }
+
+  console.log('現在のuser state:', user); // ★デバッグ用ログを追加
 
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">ダッシュボード</h1>
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        >
-          ログアウト
-        </button>
+        <h1 className="text-2xl font-bold text-gray-800">
+          {user ? `${user.username}さんの` : ''}ダッシュボード
+        </h1>
+        <h1 className="text-2xl font-bold text-gray-800">
+          ようこそ
+        </h1>
+        <div>
+          <button
+            onClick={() => navigate('/register-food')} // TODO: 食品登録ページへの導線
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4"
+          >
+            食品を登録する
+          </button>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >
+            ログアウト
+          </button>
+        </div>
       </header>
-      <div className="container mx-auto p-8">
-        <h2 className="text-2xl font-bold mb-6">（ここにダッシュボードのコンテンツが入ります）</h2>
-      </div>
+      <main className="container mx-auto p-8">
+        {/* 自分が登録した食品セクション */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-6 border-b-2 border-gray-300 pb-2">あなたが登録した食品</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {myFoodItems.length > 0 ? (
+              myFoodItems.map(item => (
+                <div key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                  <img src={item.imageUrl} alt={item.name} className="w-full h-48 object-cover" />
+                  <div className="p-4">
+                    <h3 className="font-bold text-lg">{item.name}</h3>
+                    <p className="text-gray-600">{item.location}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">まだ登録した食品はありません。</p>
+            )}
+          </div>
+        </section>
+
+        {/* TODO: 自分が応募した食品セクションも同様に作成 */}
+      </main>
     </div>
   );
 };
