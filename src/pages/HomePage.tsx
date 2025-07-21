@@ -22,7 +22,6 @@ const HomePage: React.FC<HomePageProps> = ({ modalState, setModalState, backendS
       <Header onPersonClick={handlePersonClick} />
       <Hero />
       <Main modalState={modalState} setModalState={setModalState} />
-      {/* StatusTextはApp.tsxから移動しても良いし、必要なければ削除してもOK */}
       <p style={{ textAlign: 'center', color: '#888', fontStyle: 'italic' }}>
         {backendStatus}
       </p>

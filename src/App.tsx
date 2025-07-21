@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import styled from 'styled-components';
 import type { ModalState } from './types';
 
 // ページコンポーネントをインポート
