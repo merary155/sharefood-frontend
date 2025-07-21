@@ -22,7 +22,6 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('ログイン送信:', values);
       // TODO: サーバーにデータを送信する処理をここに実装 (例: fetch/axios)
       try {
         const res = await fetch('/api/v1/login', {
