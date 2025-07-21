@@ -4,14 +4,9 @@ import FlowSection from './FlowSection';
 import FeaturesSection from './FeaturesSection';
 import HeroSection from './HeroSection';
 import Modal from './modal';
-import type { ActiveTab } from './modal'; // modal.tsx から型をインポート
+import type { ModalState, ActiveTab } from '../types';
 
 // 親から受け取ったpropsの型を定義
-interface ModalState {
-  isOpen: boolean;
-  tab: ActiveTab;
-}
-
 interface MainProps {
   modalState: ModalState;
   setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
