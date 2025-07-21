@@ -25,28 +25,28 @@ const LoginForm: React.FC = () => {
       console.log('ログイン送信:', values);
       // TODO: サーバーにデータを送信する処理をここに実装 (例: fetch/axios)
       try {
-        const res = await fetch('/api/login', {
+        const res = await fetch('/api/v1/login', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(values),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email_address: values.email,  // サーバー側が期待するキー名に修正
+            password: values.password,
+          }),
         });
 
+        const data = await res.json();
+
         if (!res.ok) {
-          throw new Error('ログインに失敗しました');
+          // サーバーからのエラーメッセージをthrow
+          throw new Error(data.message || 'ログインに失敗しました');
         }
 
-        const data = await res.json();
-        // トークンなどを保存（例：localStorage に JWT を保存）
-        localStorage.setItem('token', data.token);
-
-        // ✅ ログイン成功後に /dashboard に遷移
+        localStorage.setItem('token', data.access_token); // tokenのキー名も確認
         navigate('/dashboard');
 
-      } catch (error) {
+      } catch (error: any) {
         console.error(error);
-        alert('ログインに失敗しました。もう一度お試しください。');
+        alert(error.message || 'ログインに失敗しました。もう一度お試しください。');
       }
     }
   };

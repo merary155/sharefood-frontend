@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from '../hooks/useForm';
 import { validateRegister } from '../utils/validation';
+import { useNavigate } from 'react-router-dom';
 
 // フォームの値の型を定義
 interface FormValues {
@@ -14,12 +15,50 @@ const RegisterForm: React.FC = () => {
     { name: '', email: '', password: '' },
     validateRegister
   );
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('登録送信:', values);
-      // ここでAPI送信などの処理
+      // バックエンドのスキーマに合わせてキー名をマッピング
+      const dataToSend = {
+        username: values.name,
+        email_address: values.email,
+        password: values.password,
+      };
+
+      console.log('登録送信:', dataToSend);
+
+      try {
+        // バックエンドの登録APIエンドポイントを呼び出す
+        const res = await fetch('/api/v1/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataToSend),
+        });
+
+        // 先にレスポンスをJSONとしてパース
+        const data = await res.json();
+
+        if (!res.ok) {
+          // サーバーからのエラーメッセージがあればそれを使用
+          throw new Error(data.message || '会員登録に失敗しました');
+        }
+
+        alert(data.message || '会員登録が完了しました！ログインページに移動します。');
+        // 登録成功後はログインページに遷移させるのが一般的
+        navigate('/login');
+      } catch (error: any) {
+        console.error('登録エラー:', error);
+        // JSONパースエラーなども考慮し、汎用的なメッセージを表示
+        if (error instanceof SyntaxError) {
+          alert('サーバーからの応答が無効です。時間をおいて再度お試しください。');
+        } else {
+          alert(error.message || '会員登録中にエラーが発生しました。');
+        }
+      }
     }
   };
 

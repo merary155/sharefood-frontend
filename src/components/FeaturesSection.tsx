@@ -13,7 +13,7 @@ const features: Feature[] = [
   { id: 1, icon: '🛡️', title: '安心・安全', description: '会員制で安心できる取引環境を提供します' },
   { id: 2, icon: '📱', title: '簡単操作', description: '直感的なインターフェースで誰でも簡単に利用できます' },
   { id: 3, icon: '🌱', title: '環境貢献', description: '食品ロスを減らして持続可能な社会に貢献します' },
-  { id: 4, icon: '💰', title: '無料利用', description: '基本機能は全て無料でご利用いただけます' },
+  { id: 4, icon: '💰', title: '無料利用', description: '機能は全て無料でご利用いただけます' },
 ];
 
 // FeatureCardコンポーネントのPropsの型を定義
