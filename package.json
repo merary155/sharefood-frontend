@@ -14,6 +14,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
     "@types/jest": "^30.0.0",
+    "@types/leaflet": "^1.9.20",
     "@types/node": "^24.0.13",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
@@ -27,6 +28,8 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^7.7.0"
   }
 }

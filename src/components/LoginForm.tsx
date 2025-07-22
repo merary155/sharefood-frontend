@@ -41,7 +41,7 @@ const LoginForm: React.FC = () => {
         }
 
         localStorage.setItem('token', data.access_token); // tokenのキー名も確認
-        navigate('/dashboard');
+        navigate('/app/dashboard');
 
       } catch (error: any) {
         console.error(error);

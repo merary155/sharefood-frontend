@@ -99,7 +99,7 @@ const DashboardPage: React.FC = () => {
         </h1>
         <div>
           <button
-            onClick={() => navigate('/register-food')} // TODO: 食品登録ページへの導線
+            onClick={() => navigate('/app/register-food')} // TODO: 食品登録ページへの導線
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4"
           >
             食品を登録する
