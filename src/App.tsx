@@ -5,8 +5,9 @@ import type { ModalState } from './types';
 // ページコンポーネントをインポート
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage'; // 前回作成したDashboardPage
-import PrivateRoute from './components/PrivateRoute'; // 前回作成したPrivateRoute
+import DashboardPage from './pages/DashboardPage'; 
+import RegisterFoodPage from './pages/RegisterFoodPage';
+import PrivateRoute from './components/PrivateRoute'; 
 
 const App: React.FC = () => {
   const [modalState, setModalState] = useState<ModalState>({ isOpen: false, tab: 'login' });
@@ -41,9 +42,10 @@ const App: React.FC = () => {
         path="/login"
         element={<LoginPage setModalState={setModalState} />}
       />
-      {/* ↓ 認証が必要なルート */}
-      <Route element={<PrivateRoute />}>
-        <Route path="/dashboard" element={<DashboardPage />} />
+      {/* ↓ 認証が必要なルート、Outletがこのネストに入る */}
+      <Route path="/app" element={<PrivateRoute />}>
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="register-food" element={<RegisterFoodPage />} />
       </Route>
     </Routes>
   );
