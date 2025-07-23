@@ -11,10 +11,11 @@ export type ActiveTab = 'login' | 'register' | 'forgot';
 interface ModalProps {
   onClose: () => void;
   activeTab: ActiveTab;
-  onChangeTab: (tab: ActiveTab) => void; // 引数有・その引数の型をActiveTabにする
+  onChangeTab: (tab: ActiveTab) => void;
+  onLoginSuccess: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ onClose, activeTab, onChangeTab }) => {
+const Modal: React.FC<ModalProps> = ({ onClose, activeTab, onChangeTab, onLoginSuccess }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       {/* オーバーレイをクリックするとモーダルを閉じる */}
@@ -26,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, activeTab, onChangeTab }) => {
           <button onClick={() => onChangeTab('forgot')} className={activeTab === 'forgot' ? 'active' : ''}>パスワードを忘れた方はこちら</button>
         </nav>
         <div className="modal-content">
-          {activeTab === 'login' && <LoginForm />}
+          {activeTab === 'login' && <LoginForm onLoginSuccess={onLoginSuccess} />}
           {activeTab === 'register' && <RegisterForm />}
           {activeTab === 'forgot' && <ForgotPassword />}
         </div>

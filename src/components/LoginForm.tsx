@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm } from '../hooks/useForm';
 import { validateLogin } from '../utils/validation';
-import { useNavigate } from 'react-router-dom';
 
 // フォームで扱う値の型を定義
 interface FormValues {
@@ -9,14 +8,16 @@ interface FormValues {
   password: string;
 }
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  onLoginSuccess: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
   // useFormフックがジェネリックであると仮定し、<FormValues>を渡して型を適用
   const { values, errors, handleChange, validateForm } = useForm<FormValues>(
     { email: '', password: '' },
     validateLogin
   );
-
-  const navigate = useNavigate(); // ✅ useNavigateで画面遷移できる
 
   // e専用の型チェック
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,11 +41,16 @@ const LoginForm: React.FC = () => {
           throw new Error(data.message || 'ログインに失敗しました');
         }
 
-        localStorage.setItem('token', data.access_token); // tokenのキー名も確認
-        navigate('/app/dashboard');
+        if (!data.access_token) {
+          throw new Error('アクセストークンが取得できません');
+        }
+
+        localStorage.setItem('token', data.access_token); 
+
+        onLoginSuccess(); // 親コンポーネントにログイン成功を通知
 
       } catch (error: any) {
-        console.error(error);
+        console.error('ログインエラー:', error);
         alert(error.message || 'ログインに失敗しました。もう一度お試しください。');
       }
     }

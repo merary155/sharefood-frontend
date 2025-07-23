@@ -10,9 +10,11 @@ import type { ModalState, ActiveTab } from '../types';
 interface MainProps {
   modalState: ModalState;
   setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
+  onLoginSuccess: () => void;
+  user: { id: number; username: string } | null;
 }
 
-export default function Main({ modalState, setModalState }: MainProps) { //親から受け取ったpropsを分割代入
+export default function Main({ modalState, setModalState, onLoginSuccess, user }: MainProps) { //親から受け取ったpropsを分割代入
   const { isOpen: isModalOpen, tab: modalTab } = modalState;
 
   // HeroSectionに渡す関数もuseCallbackでメモ化する
@@ -37,6 +39,7 @@ export default function Main({ modalState, setModalState }: MainProps) { //親�
   return(
     <main>
       <HeroSection
+        user={user} 
         onRegisterClick={handleRegisterClick}
         onLoginClick={handleLoginClick}
       />
@@ -49,6 +52,7 @@ export default function Main({ modalState, setModalState }: MainProps) { //親�
           onClose={closeModal}
           activeTab={modalTab}
           onChangeTab={changeTab}
+          onLoginSuccess={onLoginSuccess}
         />
       )}
     </main>
