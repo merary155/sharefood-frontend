@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import LocationPicker from '../components/map'
 import { MapContainer, TileLayer } from 'react-leaflet';
+import ImageUploader from '../components/ImageUploader'
 
 const RegisterFoodPage: React.FC = () => {
   const navigate = useNavigate();
@@ -19,8 +20,18 @@ const RegisterFoodPage: React.FC = () => {
     longitude: 0,
   });
 
+  // 画像ファイルを管理する状態を追加
+  const [images, setImages] = useState<File[]>([]);
+
   // 逆ジオコーディング中のローディング状態
   const [isGeocoding, setIsGeocoding] = useState(false);
+
+  // ImageUploaderから画像ファイルを受け取る関数
+  const handleImagesChange = (files: (File | null)[]) => {
+    // null を除外して File のみ使いたいので filter をかける
+    const validFiles = files.filter((file): file is File => file !== null);
+    console.log(validFiles);
+  };
 
   // 地図上の位置変更時に location を更新
   const handleLocationChange = async (latlng: string) => {
@@ -108,10 +119,17 @@ const RegisterFoodPage: React.FC = () => {
       fd.append('description', formData.description);
       fd.append('quantity', formData.quantity.toString());
       fd.append('unit', formData.unit);
-      fd.append('expiration_date', formData.expiration_date);
+      if (formData.expiration_date) {
+        fd.append('expiration_date', formData.expiration_date);
+      }
       fd.append('location', formData.location);
       fd.append('latitude', formData.latitude.toString());
       fd.append('longitude', formData.longitude.toString());
+
+      // 画像ファイルをFormDataに追加
+      images.forEach((file) => {
+        fd.append('images', file);
+      });
 
       const response = await fetch('/api/v1/items/', {
         method: "POST",
@@ -139,6 +157,8 @@ const RegisterFoodPage: React.FC = () => {
         商品登録ページ
       </h1>
       <p className="text-gray-700 mb-4">商品登録フォームはこちら</p>
+
+      <ImageUploader onImagesChange={handleImagesChange} />
 
       {/* 商品名入力フォーム */}
       {/* 「左のname」はHTMLの属性名で、「右のname」はその属性にセットする文字列の値 */}
@@ -241,8 +261,8 @@ const RegisterFoodPage: React.FC = () => {
 
       {/* 商品一覧ページに戻る */}
       <button 
-      onClick={()=>navigate('/app/dashboard')}
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={()=>navigate('/app/dashboard')}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         商品一覧ページに戻る
       </button>

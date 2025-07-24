@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logout from '../components/Logout';
 
 // ユーザー情報型
 interface User {
@@ -23,10 +24,7 @@ const DashboardPage: React.FC = () => {
   const [appliedFoodItems, setAppliedFoodItems] = useState<FoodItem[]>([]); // 自分が応募した食品
   const [loading, setLoading] = useState<boolean>(true);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token'); // localStorageからトークンを削除
-    navigate('/'); // ホームページにリダイレクト
-  };
+  const handleLogout = () => logout(navigate);
 
   useEffect(() => {
     const fetchData = async () => {
