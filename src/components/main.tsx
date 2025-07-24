@@ -3,7 +3,7 @@ import '../css/main.css';
 import FlowSection from './FlowSection';
 import FeaturesSection from './FeaturesSection';
 import HeroSection from './HeroSection';
-import Modal from './modal';
+import Modal from './AuthModal';
 import type { ModalState, ActiveTab } from '../types';
 
 // 親から受け取ったpropsの型を定義

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// 仮のユーザー情報型
+// ユーザー情報型
 interface User {
   id: number;
   username: string;
 }
 
-// 仮の食品データ型
+// 商品データ型
 interface FoodItem {
   id: number;
   name: string;
-  imageUrl: string;
+  img_url: string;
   location: string;
+  expiration_date?: string; // ?を付けることによって必須入力ではなくなる
 }
 
 const DashboardPage: React.FC = () => {
@@ -116,19 +117,25 @@ const DashboardPage: React.FC = () => {
         {/* 自分が登録した食品セクション */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6 border-b-2 border-gray-300 pb-2">あなたが登録した食品</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {myFoodItems.length > 0 ? (
+          {/* レスポンシブ対応 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> 
+            {myFoodItems.length > 0 ?(
               myFoodItems.map(item => (
                 <div key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <img src={item.imageUrl} alt={item.name} className="w-full h-48 object-cover" />
+                  <img src={item.img_url} alt={item.name} className="w-full h-48 object-cover"/>
                   <div className="p-4">
                     <h3 className="font-bold text-lg">{item.name}</h3>
-                    <p className="text-gray-600">{item.location}</p>
+                    {/* 期限の表示 この書き方だとyyyy/mm/ddの形式になる */}
+                    {item.expiration_date && (
+                      <p className="text-red-500 font-semibold">
+                        この商品の期限は{new Date(item.expiration_date).toLocaleDateString()}です
+                      </p>
+                    )}
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500">まだ登録した食品はありません。</p>
+              <p>現在登録された商品はありません</p>
             )}
           </div>
         </section>

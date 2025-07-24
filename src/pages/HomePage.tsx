@@ -4,7 +4,7 @@ import Header from '../components/header';
 import Hero from '../components/hero';
 import Main from '../components/main';
 import Footer from '../components/footer';
-import Modal from '../components/modal';
+import Modal from '../components/AuthModal';
 import type { ModalState, ActiveTab } from '../types';
 
 interface HomePageProps {

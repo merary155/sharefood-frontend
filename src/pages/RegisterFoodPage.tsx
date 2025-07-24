@@ -12,9 +12,9 @@ const RegisterFoodPage: React.FC = () => {
     name: '',
     description : '',
     quantity: 1,
-    unit: '',
+    unit: '個',
     expiration_date: '',
-    location: '', // 住所文字列
+    location: '',
     latitude: 0,
     longitude: 0,
   });
@@ -38,20 +38,21 @@ const RegisterFoodPage: React.FC = () => {
       if (!response.ok) throw new Error('逆ジオコーディングに失敗しました。');
       const data = await response.json();
 
+      // data が存在して、その中に address プロパティがあるかチェック
       if (data && data.address) {
         const addr = data.address;
         const postcode = addr.postcode ? `〒${addr.postcode}` : '';
-        
+
         // 住所の各部分を日本の順序で配列に格納
-        // neighbourhood（丁目など）を追加
         const addressParts = [
           addr.state, // 都道府県
           addr.county, // 郡
           addr.city || addr.town || addr.village, // 市区町村
           addr.suburb, // 町名
           addr.neighbourhood, // 丁目など
-        ].filter(Boolean); // nullやundefinedの要素を除外
+        ].filter(Boolean); // Falseとして扱う値を除外 'null'や'undefiend'など
 
+        // 配列の要素の間に何も挟まず住所の文字列を作る
         const mainAddress = addressParts.join('');
 
         // 番地情報（roadとhouse_number）をハイフンで結合
@@ -84,8 +85,8 @@ const RegisterFoodPage: React.FC = () => {
       [name]: value,
     }));
   };
-  
-  // APIへ送信する関数
+
+  // APIへ送信する関数（FormDataを使う版）
   const handleSubmit = async() => {
     // 空文字 or 空白だけの場合
     if (!formData.name.trim()) {
@@ -97,20 +98,28 @@ const RegisterFoodPage: React.FC = () => {
       alert('数量は1以上で入力してください');
       return;
     }
-    
-    // サーバーに送るデータから緯度経度を除外（サーバーがlocation文字列のみを期待する場合）
-    const { latitude, longitude, ...dataToSend } = formData;
 
-    // itemNameが入ってる場合
     try{
       const token = localStorage.getItem('token'); // ログイン時に保存されたトークンを取得
+
+      // FormDataオブジェクトを作成
+      const fd = new FormData();
+      fd.append('name', formData.name);
+      fd.append('description', formData.description);
+      fd.append('quantity', formData.quantity.toString());
+      fd.append('unit', formData.unit);
+      fd.append('expiration_date', formData.expiration_date);
+      fd.append('location', formData.location);
+      fd.append('latitude', formData.latitude.toString());
+      fd.append('longitude', formData.longitude.toString());
+
       const response = await fetch('/api/v1/items/', {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
+          // 'Content-Type': 'multipart/form-data' は設定しない（ブラウザが自動でセット）
         },
-        body: JSON.stringify(dataToSend),
+        body: fd,
       });
       if(response.ok) {
         alert('商品の登録が完了しました');
@@ -123,14 +132,14 @@ const RegisterFoodPage: React.FC = () => {
       alert('通信エラー: ' + error);
     }
   };
-  
+
   return(
     <div className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
         商品登録ページ
       </h1>
       <p className="text-gray-700 mb-4">商品登録フォームはこちら</p>
-      
+
       {/* 商品名入力フォーム */}
       {/* 「左のname」はHTMLの属性名で、「右のname」はその属性にセットする文字列の値 */}
       <p className="text-sm text-gray-400">商品名を入力してください</p>
@@ -152,7 +161,7 @@ const RegisterFoodPage: React.FC = () => {
         onChange={handleChange}
         className="border border-gray-300 rounded px-3 py-2 mb-4 w-full"
       />
-      
+
       {/* 数量入力フォーム */}
       <p className="text-sm text-gray-400">数量を入力してください</p>
       <input
@@ -164,7 +173,7 @@ const RegisterFoodPage: React.FC = () => {
         step="1"
         className="border border-gray-300 rounded px-3 py-2 mb-4 w-full"
       />
-      
+
       {/* 単位入力フォーム */}
       <p className="text-sm text-gray-400">単位を入力してください</p>
       <input
@@ -175,7 +184,7 @@ const RegisterFoodPage: React.FC = () => {
         onChange={handleChange}
         className="border border-gray-300 rounded px-3 py-2 mb-4 w-full"
       />
-      
+
       {/* 有効期限入力フォーム */}
       <p className="text-sm text-gray-400">商品の有効期限を入力してください</p>
       <input
