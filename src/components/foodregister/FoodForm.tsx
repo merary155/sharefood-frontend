@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { initialFormData } from "../../data/initialFormData";
+import { initialFormData } from "../../data/InitialFormData";
 import LocationPicker from '../map/LocationPicker';
 import { MapContainer, TileLayer } from 'react-leaflet';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import ImageUploader from '../components/foodregister/ImageUploader'
-import { initialFormData } from '../data/initialFormData';
+import { initialFormData } from '../data/InitialFormData';
 import FoodForm from '../components/foodregister/FoodForm'
  
 const RegisterFoodPage: React.FC = () => {
