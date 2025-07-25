@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/layout/header';
-import Hero from '../components/layout/hero';
+import Hero from '../components/layout/Hero';
 import Main from '../components/home/main';
 import Footer from '../components/layout/footer';
 import logout from '../components/auth/Logout';
