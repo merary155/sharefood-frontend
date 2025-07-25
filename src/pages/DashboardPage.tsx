@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logout from '../components/auth/Logout';
-
-// ユーザー情報型
-interface User {
-  id: number;
-  username: string;
-}
+import useLogout from '../components/auth/Logout';
+import { User } from '../types';
 
 // 商品データ型
 interface FoodItem {
@@ -23,8 +18,7 @@ const DashboardPage: React.FC = () => {
   const [myFoodItems, setMyFoodItems] = useState<FoodItem[]>([]); // 自分が登録した食品
   const [appliedFoodItems, setAppliedFoodItems] = useState<FoodItem[]>([]); // 自分が応募した食品
   const [loading, setLoading] = useState<boolean>(true);
-
-  const handleLogout = () => logout(navigate);
+  const logout = useLogout(setUser);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +61,7 @@ const DashboardPage: React.FC = () => {
         console.error('データの取得中にエラーが発生しました:', error); // ★エラー内容を詳しく表示
         // エラーハンドリング: トークン切れなどでログインページに飛ばすなど
         if (error instanceof Error && (error.message.includes('401') || error.message.includes('Failed to fetch'))) {
-            handleLogout();
+            logout();
         }
       } finally {
         setLoading(false);
@@ -75,7 +69,7 @@ const DashboardPage: React.FC = () => {
     };
 
     fetchData();
-  }, [navigate]);
+  }, [navigate, logout]);
 
   if (loading) {
     return (
@@ -104,7 +98,7 @@ const DashboardPage: React.FC = () => {
             食品を登録する
           </button>
           <button
-            onClick={handleLogout}
+            onClick={logout}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           >
             ログアウト

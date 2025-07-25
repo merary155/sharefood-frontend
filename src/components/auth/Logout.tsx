@@ -1,26 +1,17 @@
-const logout = (navigate: (path: string) => void) => {
-  localStorage.removeItem('token');
-  navigate('/')
-}
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { User } from "../../types";
 
-export default logout;
-
-// 下のコードと同じ意味、useは関数の中でしか使えない
-
-/*
----------------------------------------
-import { useNavigate } from 'react-router-dom';
-
-const useLogout = () => {
+const useLogout = (setUser: React.Dispatch<React.SetStateAction<User | null>>) => {
   const navigate = useNavigate();
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem('token');
-    navigate('/');
-  }
+    setUser(null); // ログアウト後にUIを即時更新するために、userステートも更新
+    navigate('/')
+  },[navigate, setUser]);
+
   return logout;
 };
 
 export default useLogout;
----------------------------------------
-*/
