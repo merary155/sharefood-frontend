@@ -1,6 +1,6 @@
 import React from 'react';
-import { useForm } from '../hooks/useForm';
-import { validateRegister } from '../utils/validation';
+import { useForm } from '../hooks/UseForm';
+import { validateRegister } from '../utils/Validation';
 import { useNavigate } from 'react-router-dom';
 
 // フォームの値の型を定義
