@@ -1,2 +1,2 @@
-import LocationPicker from './map/map';
+import LocationPicker from './map/LocationPicker';
 import { MapContainer, TileLayer } from 'react-leaflet';
