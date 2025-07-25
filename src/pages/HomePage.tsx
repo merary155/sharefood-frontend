@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/header';
-import Hero from '../components/hero';
-import Main from '../components/main';
-import Footer from '../components/footer';
-import logout from '../components/Logout';
+import Header from '../components/layout/header';
+import Hero from '../components/layout/hero';
+import Main from '../components/home/main';
+import Footer from '../components/layout/footer';
+import logout from '../components/auth/Logout';
 import type { ModalState } from '../types';
 
 interface HomePageProps {

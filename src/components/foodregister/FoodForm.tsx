@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initialFormData } from "../../data/initialFormData";
-import LocationPicker from '../map';
+import LocationPicker from '../map/map';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 type FoodFormProps = {

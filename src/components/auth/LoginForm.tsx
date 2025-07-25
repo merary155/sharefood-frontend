@@ -1,6 +1,6 @@
 import React from 'react';
-import { useForm } from '../hooks/useForm';
-import { validateLogin } from '../utils/validation';
+import { useForm } from '../../hooks/useForm';
+import { validateLogin } from '../../utils/validation';
 
 // フォームで扱う値の型を定義
 interface FormValues {

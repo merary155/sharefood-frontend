@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logout from '../components/Logout';
+import logout from '../components/auth/Logout';
 
 // ユーザー情報型
 interface User {

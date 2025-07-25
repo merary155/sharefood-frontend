@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
-import ImageUploader from '../components/ImageUploader'
+import ImageUploader from '../components/foodregister/ImageUploader'
 import { initialFormData } from '../data/initialFormData';
-import FoodForm from '../components/FoodRegitser/FoodForm'
+import FoodForm from '../components/foodregister/FoodForm'
  
 const RegisterFoodPage: React.FC = () => {
   const navigate = useNavigate();

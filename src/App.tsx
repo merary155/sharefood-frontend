@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage'; 
 import RegisterFoodPage from './pages/RegisterFoodPage';
-import PrivateRoute from './components/PrivateRoute'; 
+import PrivateRoute from './components/auth/PrivateRoute'; 
 
 const App: React.FC = () => {
   const [modalState, setModalState] = useState<ModalState>({ isOpen: false, tab: 'login' });
