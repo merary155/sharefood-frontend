@@ -4,9 +4,19 @@ import React from 'react';
 interface HeroSectionProps {
   onRegisterClick: () => void;
   onLoginClick: () => void;
+  user: { id: number; username: string } | null;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick, onLoginClick }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick, onLoginClick, user }) => {
+  if (user) {
+    // ログイン済ならボタン非表示にして挨拶だけ表示する例
+    return (
+      <>
+      </>
+    );
+  }
+
+  // ログインしていなければボタン表示
   return (
     <section>
       <div className='btn-container'>
@@ -17,5 +27,4 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick, onLoginClick
     </section>
   );
 };
-
 export default React.memo(HeroSection);

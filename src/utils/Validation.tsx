@@ -7,6 +7,7 @@ export interface RegisterValues {
   name: string;
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
 // エラーオブジェクトの型 (各キーはオプショナル)
@@ -44,13 +45,18 @@ export const validateRegister = (values: RegisterValues): RegisterErrors => {
     errors.password = 'パスワードは必須です。';
   } else if (values.password.length < 8) {
     errors.password = 'パスワードは8文字以上で入力してください。';
-  } else if (!/[A-Z]/.test(values.password)) {
-    errors.password = 'パスワードに大文字を含めてください。';
-  } else if (!/[a-z]/.test(values.password)) {
-    errors.password = 'パスワードに小文字を含めてください。';
-  } else if (!/[0-9]/.test(values.password)) {
-    errors.password = 'パスワードに数字を含めてください。';
+    // 正規表現を一つにまとめて、大文字・小文字・数字が含まれているかチェック
+  } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/.test(values.password)) {
+    errors.password = 'パスワードには大文字、小文字、数字をそれぞれ1文字以上含めてください。';
   }
+
+  // パスワード（確認用）のバリデーション
+  if (!values.passwordConfirm) {
+    errors.passwordConfirm = '確認用パスワードは必須です。';
+  } else if (values.password !== values.passwordConfirm) {
+    errors.passwordConfirm = 'パスワードが一致しません。';
+  }
+
   return errors;
 };
 
@@ -81,15 +87,6 @@ export const validateLogin = (values: LoginValues): LoginErrors => {
   // パスワードのバリデーション
   if (!values.password) {
     errors.password = 'パスワードは必須です。';
-  } else if (values.password.length < 8) {
-    errors.password = 'パスワードは8文字以上で入力してください。';
-  // !で条件を反転させてから.testでバリデーションチェック
-  } else if (!/[A-Z]/.test(values.password)) {
-    errors.password = 'パスワードに大文字を含めてください。';
-  } else if (!/[a-z]/.test(values.password)) {
-    errors.password = 'パスワードに小文字を含めてください。';
-  } else if (!/[0-9]/.test(values.password)) {
-    errors.password = 'パスワードに数字を含めてください。';
   }
 
   return errors;

@@ -1,23 +1,20 @@
 import React, { useCallback } from 'react';
 import '../css/main.css';
-import FlowSection from './FlowSection';
-import FeaturesSection from './FeaturesSection';
+import FlowSection from '../layout/FlowSection';
+import FeaturesSection from '../layout/FeaturesSection';
 import HeroSection from './HeroSection';
-import Modal from './modal';
-import type { ActiveTab } from './modal'; // modal.tsx から型をインポート
+import Modal from '../auth/AuthModal';
+import type { ModalState, ActiveTab } from '../../types';
 
 // 親から受け取ったpropsの型を定義
-interface ModalState {
-  isOpen: boolean;
-  tab: ActiveTab;
-}
-
 interface MainProps {
   modalState: ModalState;
   setModalState: React.Dispatch<React.SetStateAction<ModalState>>;
+  onLoginSuccess: () => void;
+  user: { id: number; username: string } | null;
 }
 
-export default function Main({ modalState, setModalState }: MainProps) { //親から受け取ったpropsを分割代入
+export default function Main({ modalState, setModalState, onLoginSuccess, user }: MainProps) { //親から受け取ったpropsを分割代入
   const { isOpen: isModalOpen, tab: modalTab } = modalState;
 
   // HeroSectionに渡す関数もuseCallbackでメモ化する
@@ -42,6 +39,7 @@ export default function Main({ modalState, setModalState }: MainProps) { //親�
   return(
     <main>
       <HeroSection
+        user={user} 
         onRegisterClick={handleRegisterClick}
         onLoginClick={handleLoginClick}
       />
@@ -54,6 +52,7 @@ export default function Main({ modalState, setModalState }: MainProps) { //親�
           onClose={closeModal}
           activeTab={modalTab}
           onChangeTab={changeTab}
+          onLoginSuccess={onLoginSuccess}
         />
       )}
     </main>

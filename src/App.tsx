@@ -1,17 +1,13 @@
-import Header from './components/header'
-import Hero from './components/hero'
-import Main from './components/main'
-import Footer from './components/footer'
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { Routes, Route } from 'react-router-dom';
 import type { ModalState } from './types';
 
-// スタイル付きコンポーネントを定義（これは将来的に削除）
-const StatusText = styled.p`
-  text-align: center;
-  color: #888;
-  font-style: italic;
-`;
+// ページコンポーネントをインポート
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage'; 
+import RegisterFoodPage from './pages/RegisterFoodPage';
+import PrivateRoute from './components/auth/PrivateRoute'; 
 
 const App: React.FC = () => {
   const [modalState, setModalState] = useState<ModalState>({ isOpen: false, tab: 'login' });
@@ -36,20 +32,23 @@ const App: React.FC = () => {
       .catch(error => setBackendStatus('Failed to connect to backend.'));
   }, []); // 第2引数の空の配列は「初回のみ実行」を意味する
 
-  const handlePersonClick = () => {
-    setModalState({ isOpen: true, tab: 'register' });
-  };
-
   return (
-    <>
-      <Header onPersonClick={handlePersonClick} />   {/* ここで親から子にpropsを譲渡 */}
-      <Hero />
-      <Main modalState={modalState} setModalState={setModalState} /> {/* ここで親から子にpropsを譲渡 */}
-      {/* ↓これは将来的に削除 */}
-      <StatusText>{backendStatus}</StatusText>
-      <Footer />
-    </>
-  )
+    <Routes>
+      <Route
+        path="/"
+        element={<HomePage modalState={modalState} setModalState={setModalState} backendStatus={backendStatus} />}
+      />
+      <Route
+        path="/login"
+        element={<LoginPage setModalState={setModalState} />}
+      />
+      {/* ↓ 認証が必要なルート、Outletがこのネストに入る */}
+      <Route path="/app" element={<PrivateRoute />}>
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="register-food" element={<RegisterFoodPage />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;

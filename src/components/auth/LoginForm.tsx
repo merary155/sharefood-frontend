@@ -1,7 +1,6 @@
 import React from 'react';
-import { useForm } from '../hooks/useForm';
-import { validateLogin } from '../utils/validation';
-import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks/UseForm';
+import { validateLogin } from '../../utils/Validation';
 
 // フォームで扱う値の型を定義
 interface FormValues {
@@ -9,44 +8,50 @@ interface FormValues {
   password: string;
 }
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  onLoginSuccess: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
   // useFormフックがジェネリックであると仮定し、<FormValues>を渡して型を適用
   const { values, errors, handleChange, validateForm } = useForm<FormValues>(
     { email: '', password: '' },
     validateLogin
   );
 
-  const navigate = useNavigate(); // ✅ useNavigateで画面遷移できる
-
   // e専用の型チェック
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('ログイン送信:', values);
       // TODO: サーバーにデータを送信する処理をここに実装 (例: fetch/axios)
       try {
-        const res = await fetch('/api/login', {
+        const res = await fetch('/api/v1/login', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(values),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email_address: values.email,  // サーバー側が期待するキー名に修正
+            password: values.password,
+          }),
         });
 
+        const data = await res.json();
+
         if (!res.ok) {
-          throw new Error('ログインに失敗しました');
+          // サーバーからのエラーメッセージをthrow
+          throw new Error(data.message || 'ログインに失敗しました');
         }
 
-        const data = await res.json();
-        // トークンなどを保存（例：localStorage に JWT を保存）
-        localStorage.setItem('token', data.token);
+        if (!data.access_token) {
+          throw new Error('アクセストークンが取得できません');
+        }
 
-        // ✅ ログイン成功後に /dashboard に遷移
-        navigate('/dashboard');
+        localStorage.setItem('token', data.access_token); 
 
-      } catch (error) {
-        console.error(error);
-        alert('ログインに失敗しました。もう一度お試しください。');
+        onLoginSuccess(); // 親コンポーネントにログイン成功を通知
+
+      } catch (error: any) {
+        console.error('ログインエラー:', error);
+        alert(error.message || 'ログインに失敗しました。もう一度お試しください。');
       }
     }
   };
