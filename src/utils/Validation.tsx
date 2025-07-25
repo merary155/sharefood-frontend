@@ -1,14 +1,8 @@
+import { RegisterValues, LoginValues } from "../interface/auth";
+
 // ==================================
 // 新規登録フォーム (RegisterForm)
 // ==================================
-
-// フォームの値の型を定義
-export interface RegisterValues {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-}
 
 // エラーオブジェクトの型 (各キーはオプショナル)
 export type RegisterErrors = Partial<RegisterValues>;
@@ -64,12 +58,6 @@ export const validateRegister = (values: RegisterValues): RegisterErrors => {
 // ==================================
 // ログインフォーム (LoginForm)
 // ==================================
-
-// フォームの値の型を定義
-export interface LoginValues {
-  email: string;
-  password: string;
-}
 
 // エラーオブジェクトの型を定義（各キーはオプショナル）
 export type LoginErrors = Partial<LoginValues>;

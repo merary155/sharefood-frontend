@@ -5,7 +5,7 @@ import Hero from '../components/layout/Hero';
 import Main from '../components/home/Main';
 import Footer from '../components/layout/Footer';
 import useLogout from '../components/auth/Logout';
-import type { ModalState, User } from '../types';
+import type { ModalState, User } from '../interface/types';
 import UserPanel from '../components/home/UserPanel';
 
 interface HomePageProps {

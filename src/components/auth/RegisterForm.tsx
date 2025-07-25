@@ -1,18 +1,11 @@
 import React from 'react';
-import { useForm } from '../hooks/UseForm';
-import { validateRegister } from '../utils/Validation';
+import { useForm } from '../../hooks/UseForm';
+import { validateRegister } from '../../utils/Validation';
 import { useNavigate } from 'react-router-dom';
-
-// フォームの値の型を定義
-interface FormValues {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-}
+import { RegisterValues } from '../../interface/auth';
 
 const RegisterForm: React.FC = () => {
-  const { values, errors, handleChange, validateForm } = useForm<FormValues>(
+  const { values, errors, handleChange, validateForm } = useForm<RegisterValues>(
     { name: '', email: '', password: '', passwordConfirm: '' },
     validateRegister
   );

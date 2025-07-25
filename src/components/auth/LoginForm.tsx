@@ -1,20 +1,15 @@
 import React from 'react';
 import { useForm } from '../../hooks/UseForm';
 import { validateLogin } from '../../utils/Validation';
-
-// フォームで扱う値の型を定義
-interface FormValues {
-  email: string;
-  password: string;
-}
+import { LoginValues } from '../../interface/auth';
 
 interface LoginFormProps {
   onLoginSuccess: () => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
-  // useFormフックがジェネリックであると仮定し、<FormValues>を渡して型を適用
-  const { values, errors, handleChange, validateForm } = useForm<FormValues>(
+  // useFormフックがジェネリックであると仮定し、<LoginValues>を渡して型を適用
+  const { values, errors, handleChange, validateForm } = useForm<LoginValues>(
     { email: '', password: '' },
     validateLogin
   );

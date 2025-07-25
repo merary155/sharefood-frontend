@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../types";
+import { User } from "../../interface/types";
 
 const useLogout = (setUser: React.Dispatch<React.SetStateAction<User | null>>) => {
   const navigate = useNavigate();

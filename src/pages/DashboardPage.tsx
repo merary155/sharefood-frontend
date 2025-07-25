@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogout from '../components/auth/Logout';
-import { User } from '../types';
-
-// 商品データ型
-interface FoodItem {
-  id: number;
-  name: string;
-  img_url: string;
-  location: string;
-  expiration_date?: string; // ?を付けることによって必須入力ではなくなる
-}
+import { User, FoodItem } from '../interface/types';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
