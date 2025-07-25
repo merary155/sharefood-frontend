@@ -4,7 +4,6 @@ import Header from '../components/header';
 import Hero from '../components/hero';
 import Main from '../components/main';
 import Footer from '../components/footer';
-import Modal from '../components/AuthModal';
 import logout from '../components/Logout';
 import type { ModalState } from '../types';
 
