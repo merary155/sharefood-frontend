@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { ModalState } from '../types';
+import type { ModalState } from '../interface/types';
 
 interface LoginPageProps {
   setModalState: React.Dispatch<React.SetStateAction<ModalState>>;

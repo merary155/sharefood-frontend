@@ -4,8 +4,9 @@ import Header from '../components/layout/Header';
 import Hero from '../components/layout/Hero';
 import Main from '../components/home/Main';
 import Footer from '../components/layout/Footer';
-import logout from '../components/auth/Logout';
-import type { ModalState } from '../types';
+import useLogout from '../components/auth/Logout';
+import type { ModalState, User } from '../interface/types';
+import UserPanel from '../components/home/UserPanel';
 
 interface HomePageProps {
   modalState: ModalState;
@@ -13,18 +14,10 @@ interface HomePageProps {
   backendStatus: string;
 }
 
-interface User{
-  id: number;
-  username: string;
-}
-
 const HomePage: React.FC<HomePageProps> = ({ modalState, setModalState, backendStatus }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User|null>(null); // 初期値null、型は'User or null'
-  const handleLogout = () => {
-    logout(navigate);
-    setUser(null); // ログアウト後にUIを即時更新するために、userステートも更新
-  };
+  const logout = useLogout(setUser);
 
   // モーダルを開く関数（ログインボタン用）
   const handlePersonClick = useCallback(() => {
@@ -80,36 +73,11 @@ const HomePage: React.FC<HomePageProps> = ({ modalState, setModalState, backendS
       <Header onPersonClick={handlePersonClick} />
       <Hero />
       {/* ★ ユーザーがログインしていたら表示するブロック */}
-      {user && (
-        <div className="mt-10 text-center my-6">
-          <p className="text-3xl font-extrabold text-gray-800 tracking-wide leading-relaxed drop-shadow-sm">
-            {user.username} 様、ようこそ！
-          </p>
-          <div className="mt-20 flex flex-col items-center gap-20">
-            <div className="flex gap-10">
-              <button
-                onClick={() => navigate('/app/register-food')}
-                className="bg-green-600 hover:bg-green-700 text-white py-4 px-8 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300"
-              >
-                商品登録はこちら
-              </button>
-              <button
-                onClick={() => navigate('/app/search')}
-                className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300"
-              >
-                商品検索はこちら
-              </button>
-            </div>
-
-            <button
-              onClick={handleLogout}
-              className="bg-red-600 hover:bg-red-700 text-white py-4 px-8 rounded-full text-lg font-semibold shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 duration-300"
-            >
-              ログアウトはこちら
-            </button>
-          </div>
-        </div>
-      )}
+      <UserPanel 
+        onLogout={logout}
+        user={user}
+        onNavigate={navigate}
+      />
       <Main 
         modalState={modalState} 
         setModalState={setModalState} 

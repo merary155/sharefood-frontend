@@ -1,15 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { ActionFunction } from 'react-router-dom';
-import { ActiveTab } from '../types';
-
-// 商品データ型
-interface FoodItem {
-  id: number;
-  name: string;
-  img_url: string;
-  location: string;
-  expiration_date?: string; // ?を付けることによって必須入力ではなくなる
-}
+import { ActiveTab } from '../interface/types';
+import { FoodItem } from '../interface/types';
 
 interface EditFoodModalProps {
   isOpen: boolean;
@@ -18,20 +10,21 @@ interface EditFoodModalProps {
   onSave: (updataItem: FoodItem) => void; // 更新されたFoodItemを引数に受け取り、保存処理を行う関数
 }
 
-const EditFoodModal:React.FC<EditFoodModalProps> = ({ isOpen, foodItem, onClose, onSave }) => {
-  const [name,setName] = useState('');
-  const [imgUrl,setImgUrl] = useState('');
-  const [expirationDate, setExpirationDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [error, setError] = useState<string | null>(null);
+// ここに商品編集機能を追加する
 
-  useEffect(() => {
-    if (foodItem){
-      setName(foodItem.name);
-      setImgUrl(foodItem.img_url);
-      setExpirationDate(foodItem.expiration_date ? foodItem.expiration_date)
-    }
-  }
-    
-  )
-}
+// const EditFoodModal:React.FC<EditFoodModalProps> = ({ isOpen, foodItem, onClose, onSave }) => {
+//   const [name,setName] = useState('');
+//   const [imgUrl,setImgUrl] = useState('');
+//   const [expirationDate, setExpirationDate] = useState('');
+//   const [location, setLocation] = useState('');
+//   const [error, setError] = useState<string | null>(null);
+
+//   useEffect(() => {
+//     if (foodItem){
+//       setName(foodItem.name);
+//       setImgUrl(foodItem.img_url);
+//       setExpirationDate(foodItem.expiration_date ? foodItem.expiration_date)
+//     }
+//    }
+//   )
+// }

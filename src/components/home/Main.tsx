@@ -4,7 +4,7 @@ import FlowSection from '../layout/FlowSection';
 import FeaturesSection from '../layout/FeaturesSection';
 import HeroSection from './HeroSection';
 import Modal from '../auth/AuthModal';
-import type { ModalState, ActiveTab } from '../../types';
+import type { ModalState, ActiveTab } from '../../interface/types';
 
 // 親から受け取ったpropsの型を定義
 interface MainProps {
