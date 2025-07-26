@@ -15,6 +15,7 @@ export default function useAuthToken() {
     })
       .then(res => {
         if (!res.ok) throw new Error('認証エラー');
+        // 正常ならdataが返ってくる、また"res.json()"は引数なしで使う
         return res.json();
       })
       .then(data => setUser(data.user))
