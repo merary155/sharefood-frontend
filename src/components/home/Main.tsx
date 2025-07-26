@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import '../css/main.css';
+import '../../css/main.css';
 import FlowSection from '../layout/FlowSection';
 import FeaturesSection from '../layout/FeaturesSection';
 import HeroSection from './HeroSection';
