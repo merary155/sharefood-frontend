@@ -1,4 +1,4 @@
-import '../css/hero.css';
+import '../../css/hero.css';
 import React, { useState, useEffect } from 'react';
 
 // 画像のURLリスト

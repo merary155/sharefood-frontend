@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from '../../hooks/UseForm';
+import { useForm } from '../../hooks/useForm';
 import { validateLogin } from '../../utils/Validation';
 import { LoginValues } from '../../interface/auth';
 

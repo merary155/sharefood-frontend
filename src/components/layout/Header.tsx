@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../css/header.css';
+import '../../css/header.css';
 
 // propsの型定義をinterfaceで
 interface HeaderProps {
