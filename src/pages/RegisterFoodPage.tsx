@@ -76,16 +76,18 @@ const RegisterFoodPage: React.FC = () => {
   };
 
   return(
-    <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        商品登録ページ
-      </h1>
-      <p className="text-gray-700 mb-4">商品登録フォームはこちら</p>
+    <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-gray-100 p-8 w-full md:w-2/3 mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+          商品登録ページ
+        </h1>
+        <p className="text-gray-700 mb-4 text-center">画像は6枚までご登録いただけます</p>
 
-      <ImageUploader onImagesChange={handleImagesChange} />
-      <FoodForm
-        onSubmit ={handleSubmit}
-      />
+        <ImageUploader onImagesChange={handleImagesChange} />
+        <FoodForm
+          onSubmit ={handleSubmit}
+        />
+      </div>
     </div>
   );
 };

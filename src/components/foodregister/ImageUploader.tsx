@@ -49,11 +49,17 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ maxImages = 6, onImagesCh
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full mx-auto">
       {images.map((image, index) => (
         <div
           key={index}
-          className="w-24 h-24 bg-gray-100 rounded-md flex items-center justify-center cursor-pointer border"
+            className="
+              w-24 h-24            /* デフォルト（スマホ用） */
+              sm:w-28 sm:h-28      /* 画面幅640px以上 */
+              md:w-32 md:h-32      /* 画面幅768px以上（タブレット） */
+              lg:w-36 lg:h-36      /* 画面幅1024px以上（PC） */
+              bg-gray-100 rounded-md flex items-center justify-center cursor-pointer border
+            "
           onClick={() => handleSlotClick(index)}
         >
           {image ? (
