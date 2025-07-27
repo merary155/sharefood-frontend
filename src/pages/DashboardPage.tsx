@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useLogout from '../components/auth/Logout';
 import { User, FoodItem } from '../interface/types';
+import useAuthToken from '../components/auth/useAuthToken';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null); // ユーザー情報を保持
+  const { user, fetchUser, logout } = useAuthToken();// ユーザー情報を保持
   const [myFoodItems, setMyFoodItems] = useState<FoodItem[]>([]); // 自分が登録した食品
   const [appliedFoodItems, setAppliedFoodItems] = useState<FoodItem[]>([]); // 自分が応募した食品
   const [loading, setLoading] = useState<boolean>(true);
-  const logout = useLogout(setUser);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,11 +32,6 @@ const DashboardPage: React.FC = () => {
             headers: { 'Authorization': `Bearer ${token}` },
           }),
         ]);
-
-        if (!userRes.ok) throw new Error('ユーザー情報の取得に失敗しました');
-        const userData: User = await userRes.json();
-        console.log('APIから取得したユーザー情報:', userData); // ★デバッグ用ログを追加
-        setUser(userData);
 
         if (myFoodsRes.ok) {
           const myFoodsData: FoodItem[] = await myFoodsRes.json();
@@ -87,6 +81,12 @@ const DashboardPage: React.FC = () => {
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4"
           >
             食品を登録する
+          </button>
+          <button
+            onClick={() => navigate('/')}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+          >
+            ホームページに戻る
           </button>
           <button
             onClick={logout}
