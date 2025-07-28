@@ -5,7 +5,7 @@ export interface ModalState {
   tab: ActiveTab;
 }
 
-export interface User{
+export interface User {
   id: number;
   username: string;
 }
@@ -25,4 +25,15 @@ export interface FoodItem {
   img_url: string;
   location: string;
   expiration_date?: string; // ?を付けることによって必須入力ではなくなる
+}
+
+export interface FoodFormData {
+  name: string;
+  description: string;
+  quantity: number;
+  unit: string;
+  expiration_date: string;
+  location: string;
+  latitude?: number;
+  longitude?: number;
 }

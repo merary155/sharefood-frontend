@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import LocationPicker from './map/LocationPicker';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { FoodFormData } from '../../interface/types';
 
-const useReverseGeocoding = (initialLocation) => {
+const useReverseGeocoding = (setFormData: React.Dispatch<React.SetStateAction<FoodFormData>>) => {
   // 逆ジオコーディング中のローディング状態
   const [isGeocoding, setIsGeocoding] = useState(false);
   // 地図上の位置変更時に location を更新
@@ -53,6 +52,8 @@ const useReverseGeocoding = (initialLocation) => {
       setIsGeocoding(false);
     }
   };
+
+  return { isGeocoding, handleLocationChange };
 };
 
 export default useReverseGeocoding;
