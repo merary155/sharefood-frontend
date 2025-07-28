@@ -57,11 +57,6 @@ const RegisterFoodPage: React.FC = () => {
         },
         body: fd,
       });
-      
-      // バグ特定。後で消す
-      console.log("status:", response.status);
-      const text = await response.text();
-      console.log("body:", text);
 
       if(response.ok) {
         alert('商品の登録が完了しました');
