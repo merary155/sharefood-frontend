@@ -1,5 +1,3 @@
-// src/api.ts
-
 import axios from 'axios';
 
 // シンプルなログアウト関数
