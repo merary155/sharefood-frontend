@@ -1,5 +1,7 @@
 export type ActiveTab = 'login' | 'register' | 'forgot';
 
+export type ModalType = 'editModal' | null;
+
 export interface ModalState {
   isOpen: boolean;
   tab: ActiveTab;

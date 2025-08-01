@@ -11,12 +11,14 @@ interface EditFoodModalProps {
 }
 
 const EditFoodModal:React.FC<EditFoodModalProps> = ({isOpen, foodItem, onClose, onSave}) => {
+  // 初期値を.nameみたいにせず、空にするのは初回レンダリング時の値がずっと残っちゃうから
   const [name, setName] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [location, setLocation] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  // foodItemを読み込んだとき(if文チェック時)、それぞれの値に登録時の商品名がセットされる
   useEffect(() => {
    if (foodItem){
      setName(foodItem.name);
@@ -135,3 +137,5 @@ const EditFoodModal:React.FC<EditFoodModalProps> = ({isOpen, foodItem, onClose, 
     </div>
   );
 };
+
+export default EditFoodModal;
