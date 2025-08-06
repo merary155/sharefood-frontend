@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, FoodItem } from '../interface/types';
 import useAuthToken from '../components/auth/useAuthToken';
+import ToggleAvailabilityButton from '../components/ToggleAvailability';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
@@ -66,6 +67,15 @@ const DashboardPage: React.FC = () => {
 
   console.log('現在のuser state:', user); // ★デバッグ用ログを追加
 
+  // トグルされた時の親の状態更新関数
+  const handleToggleAvailability = (itemId: number, newAvailability: boolean) => {
+    setMyFoodItems(prev =>
+      prev.map(item =>
+        item.id === itemId ? { ...item, is_available: newAvailability } : item
+      )
+    );
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
@@ -114,6 +124,7 @@ const DashboardPage: React.FC = () => {
                         この商品の期限は{new Date(item.expiration_date).toLocaleDateString()}です
                       </p>
                     )}
+                    <ToggleAvailabilityButton item={item} onToggle={handleToggleAvailability} />
                   </div>
                 </div>
               ))
