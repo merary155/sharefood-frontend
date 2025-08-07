@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, FoodItem } from '../interface/types';
 import useAuthToken from '../components/auth/useAuthToken';
-import ToggleAvailabilityButton from '../components/ToggleAvailability';
+import ToggleAvailabilityButton from '../components/ToggleAvailabilityButton';
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
