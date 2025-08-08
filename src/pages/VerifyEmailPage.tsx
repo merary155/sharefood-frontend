@@ -16,7 +16,11 @@ export default function VerifyEmail() {
       return;
     }
 
-    fetch(`/api/v1/verify-email?token=${token}`)
+    fetch(`/api/v1/verify-email?token=${token}`, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
       .then(res => res.json().then(data => ({ ok: res.ok, data })))
       .then(({ ok, data }) => {
         if(ok){
