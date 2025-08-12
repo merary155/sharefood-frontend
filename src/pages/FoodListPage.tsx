@@ -49,17 +49,7 @@ export default function FoodListPage() {
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
             <div className="p-4 flex flex-col items-center">
-              {item.img_url ? (
-                <img
-                  src={`/uploads/${item.img_url}`}
-                  alt={item.name}
-                  className="w-full h-48 object-cover mb-4 rounded"
-                />
-              ) : (
-                <div className="w-full h-48 bg-gray-200 mb-4 rounded flex items-center justify-center text-gray-500">
-                  画像なし
-                </div>
-              )}
+              <img src={item.image_url} alt={item.name} className="w-full h-48 object-cover"/>
               <h2 className="text-xl font-semibold mb-2 text-center">{item.name}</h2>
               <p className="text-gray-600 mb-2 text-center">{item.location}</p>
               {item.expiration_date && (

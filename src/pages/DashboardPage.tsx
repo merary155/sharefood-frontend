@@ -26,7 +26,7 @@ const DashboardPage: React.FC = () => {
           fetch('/api/v1/me', { // ユーザー情報取得API
             headers: { 'Authorization': `Bearer ${token}` },
           }),
-          fetch('/api/v1/my/foods', { // 自分が登録した食品一覧API
+          fetch('/api/v1/my/items', { // 自分が登録した食品一覧API
             headers: { 'Authorization': `Bearer ${token}` },
           }),
           fetch('/api/v1/my/applications', { // 自分が応募した食品一覧API
@@ -35,8 +35,8 @@ const DashboardPage: React.FC = () => {
         ]);
 
         if (myFoodsRes.ok) {
-          const myFoodsData: FoodItem[] = await myFoodsRes.json();
-          setMyFoodItems(myFoodsData);
+          const myItemsData: FoodItem[] = await myFoodsRes.json();
+          setMyFoodItems(myItemsData);
         }
 
         if (appliedFoodsRes.ok) {
@@ -115,7 +115,13 @@ const DashboardPage: React.FC = () => {
             {myFoodItems.length > 0 ?(
               myFoodItems.map(item => (
                 <div key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <img src={item.img_url} alt={item.name} className="w-full h-48 object-cover"/>
+                  {item.image_url ? (
+                    <img src={item.image_url} alt={item.name} className="w-full h-48 object-cover"/>
+                  ) : (
+                    <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+                      画像なし
+                    </div>
+                  )}
                   <div className="p-4">
                     <h3 className="font-bold text-lg">{item.name}</h3>
                     {/* 期限の表示 この書き方だとyyyy/mm/ddの形式になる */}

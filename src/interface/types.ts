@@ -24,7 +24,7 @@ export interface FormValues {
 export interface FoodItem {
   id: number;
   name: string;
-  img_url: string;
+  image_url: string;
   location: string;
   expiration_date?: string; // ?を付けることによって必須入力ではなくなる
   is_available: boolean;    // 商品の掲載・非掲載の切り替え
