@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage'; 
 import RegisterFoodPage from './pages/RegisterFoodPage';
 import PrivateRoute from './components/auth/PrivateRoute'; 
+import VerifyEmail from './pages/VerifyEmailPage';
 
 const App: React.FC = () => {
   const [modalState, setModalState] = useState<ModalState>({ isOpen: false, tab: 'login' });
@@ -41,6 +42,10 @@ const App: React.FC = () => {
       <Route
         path="/login"
         element={<LoginPage setModalState={setModalState} />}
+      />
+      <Route
+        path="/verify-email"
+        element={<VerifyEmail />}
       />
       {/* ↓ 認証が必要なルート、Outletがこのネストに入る */}
       <Route path="/app" element={<PrivateRoute />}>

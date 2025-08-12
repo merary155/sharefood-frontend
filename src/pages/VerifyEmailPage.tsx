@@ -29,7 +29,7 @@ export default function VerifyEmail() {
 
           // 2秒後にLoginPageに遷移
           setTimeout(() => {
-            navigate("/");
+            navigate("/Dashboard");
           }, 2000);
         }else{
           setMessage(data.message || '認証に失敗しました。'); // "||"は or の役目
